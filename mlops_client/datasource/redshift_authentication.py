@@ -49,6 +49,6 @@ class RedshiftAuthentication:
   def build(self) -> 'RedshiftAuthentication':
     required_fields = ["api_key", "api_secret_key", "cluster_id", "aws_region", "database"]
     for r in required_fields:
-      if self.__getattribute__(f"_{r}") == None:
+      if not hasattr(self, f"_{r}"):
         raise MissingFieldError(r)
     return self

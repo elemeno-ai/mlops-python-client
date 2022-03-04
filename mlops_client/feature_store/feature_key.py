@@ -1,10 +1,6 @@
 from mlops_client.feature_store.feature_value_type import FeatureValueType
-
+from mlops_client.model.missing_field import MissingFieldError
 class FeatureKey:
-
-  def __init__(self, key_name: str, key_value_type: FeatureValueType):
-    self._key_name = key_name
-    self._key_value_type = key_value_type
 
   @property
   def key_name(self) -> str:
@@ -14,13 +10,21 @@ class FeatureKey:
   def key_value_type(self) -> FeatureValueType:
     return self._key_value_type
 
-  @key_name.setter
-  def key_name(self, key_name):
+  def with_key_name(self, key_name: str) -> 'FeatureKey':
     self._key_name = key_name
+    return self
 
-  @key_value_type.setter
-  def key_value_type(self, key_value_type):
+  def with_key_value_type(self, key_value_type: FeatureValueType) -> 'FeatureKey':
     self._key_value_type = key_value_type
+    return self
+
+  def build(self) -> 'FeatureKey':
+    if not hasattr(self, '_key_name'):
+      raise MissingFieldError('key_name')
+    if not hasattr(self, '_key_value_type'):
+      raise MissingFieldError('key_value_type')
+    return self
+      
 
   def to_dict(self):
     return {

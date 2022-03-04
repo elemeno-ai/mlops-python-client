@@ -39,7 +39,7 @@ class FeatureSource:
     return self
   
   def build(self) -> 'FeatureSource':
-    if self.__getattribute__(f"_source_type") == None:
+    if not hasattr(self, f"_source_type"):
       raise MissingFieldError("source_type")
     required = []
     if self._source_type == FeatureSourceType.FEATURE_TABLE:
@@ -49,7 +49,7 @@ class FeatureSource:
     else:
       raise InvalidFeatureValueTypeError(self._source_type)
     for r in required:
-      if self.__getattribute__(f"_{r}") == None:
+      if not hasattr(self, f"_{r}"):
         raise MissingFieldError(r)
     return self
     

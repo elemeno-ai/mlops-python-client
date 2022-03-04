@@ -15,6 +15,11 @@ class Headers:
     self._headers["X-API-SECRET"] = x_api_secret
     return self
 
+  def from_dict_with_header(self, dict_from: typing.Dict[str, str], header_name: str, header_val: str) -> 'Headers':
+    self._headers = dict_from.copy()
+    self._headers[header_name] = header_val
+    return self
+
   def build(self) -> typing.Dict[str, str]:
     for expected in self._default:
       if self._headers.get(expected) == None:

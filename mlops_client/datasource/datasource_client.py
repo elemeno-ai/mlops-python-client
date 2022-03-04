@@ -18,7 +18,7 @@ class Datasource(ServiceClient):
     """Datasource is the client for interacting with the /datasource endpoint on
     Elemeno MLOps API.
 
-    Params:
+    Paramaters:
       headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
       client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
     
@@ -29,18 +29,21 @@ class Datasource(ServiceClient):
     self._endpoint = "/datasource"
     self._headers = headers
     self._host = host
-    if client == None:
-      client = aiohttp.ClientSession()
     self._client = client
 
-  async def create_datasource(self, 
+  def _get_client(self) -> aiohttp.ClientSession:
+    if self._client == None:
+      return aiohttp.ClientSession()
+    return self._client
+  
+  async def create(self, 
       dstype: DatasourceType, 
       authentication: Union[GCPAuthentication, RedshiftAuthentication, None],
       description: str,
       csv_file_path: Optional[str] = None) -> Any:
     """Creates a new datasource object on your account at Elemeno MLOps
     
-    Params:
+    Parameters:
       dstype: The type of data source you want to use
       authentication: The credentials that will allow the platform to handle your data. Should be None when the type is CSV
       description: A short description of your datasource, so that you can find it later
@@ -50,7 +53,7 @@ class Datasource(ServiceClient):
       The json object with the result. If it fails, this method will raise an Exception
     """
 
-    async with self._client as client:
+    async with self._get_client() as client:
       with aiohttp.MultipartWriter('text') as mpwriter:
         form = aiohttp.FormData()
         form.add_field("description", description)
@@ -81,18 +84,41 @@ class Datasource(ServiceClient):
         else:
           raise InvalidTypeError(dstype)
   
-  async def remove_datasource(self, id: str) -> Any:
-    async with self._client as client:
+  async def remove(self, id: str) -> Any:
+    """
+    Removes a datasource.
+
+    Parameters:
+      id: The datasource id.
+
+    Returns:
+      The datasource.
+    """
+
+    async with self._get_client() as client:
       endpoint = "/".join([self._endpoint, id])
       return await self._delete(client, endpoint, self._headers)
   
-  async def list_datasources(self, offset: Optional[str] = None, limit: Optional[int] = None) -> Any:
+  async def list(self, offset: Optional[str] = None, limit: Optional[int] = None) -> Any:
+    """
+    Lists all datasources.
+
+    Parameters:
+      offset: An optional string that is used for pagination. It indicates the
+        first element that should be returned (0-based).
+      limit: An optional integer that is used for pagination. It indicates the
+        maximum number of elements to return.
+
+    Returns:
+      A list of datasources.
+    """
+
     query_params = {}
     if offset != None:
       query_params["offset"] = offset
     if limit != None:
       query_params["limit"] = str(limit)
-    async with self._client as client:
+    async with self._get_client() as client:
       return await self._get(client, self._endpoint, query_params, self._headers)
 
  

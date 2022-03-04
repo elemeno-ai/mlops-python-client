@@ -23,14 +23,30 @@ class FeatureTable(ServiceClient):
     self._endpoint = "/featuretable"
     self._headers = headers
     self._host = host
-    if client == None:
-      client = aiohttp.ClientSession()
     self._client = client
 
-  async def create_feature_table_mapping(self, datasource_id: str, source_table_id: str, 
-    feature_table_name: str, keys: List[FeatureKey], features: List[Feature]) -> Any:
+  def _get_client(self):
+    if self._client == None:
+      return aiohttp.ClientSession()
+    return self._client
 
-    async with self._client as client:
+  async def create_mapping(self, datasource_id: str, source_table_id: str, 
+    feature_table_name: str, keys: List[FeatureKey], features: List[Feature]) -> Any:
+    """
+    Creates a feature table mapping for a given datasource and source table.
+
+    Parameters:
+      datasource_id (str): The datasource id.
+      source_table_id (str): The source table id.
+      feature_table_name (str): The feature table name.
+      keys (List[FeatureKey]): A list of FeatureKey objects.
+      features (List[Feature]): A list of Feature objects.
+
+    Returns:
+      Any: The response from the API.
+    """
+
+    async with self._get_client() as client:
       headers = self._headers
       headers['Content-Type'] = 'application/json'
       body = {

@@ -25,6 +25,6 @@ class GCPAuthentication:
   def build(self) -> 'GCPAuthentication':
     required_fields = ["path", "project_id"]
     for r in required_fields:
-      if self.__getattribute__(f"_{r}") == None:
+      if not hasattr(self, f"_{r}"):
         raise MissingFieldError(r)
     return self

@@ -52,7 +52,7 @@ async def test_create_inference_server(server, mocker):
       build()
     sources = [source_body_key, source_feature_table]
 
-    await d.create_rest_inference_server('tests/inference_server/model.onnx', 1, sources)
+    await d.create_rest('tests/inference_server/model.onnx', 1, sources)
 
     assert client.post.call_count == 1
     spied_data = client.post.call_args.kwargs['data']

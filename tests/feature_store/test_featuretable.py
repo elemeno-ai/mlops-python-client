@@ -4,6 +4,8 @@ import aiohttp
 import pytest
 from aiohttp import web, test_utils
 from unittest.mock import MagicMock, ANY
+
+from sqlalchemy import INTEGER
 from mlops_client.feature_store.feature import Feature
 from mlops_client.feature_store.feature_key import FeatureKey
 from mlops_client.feature_store.feature_value_type import FeatureValueType
@@ -36,10 +38,17 @@ async def test_create_featuretable(server, mocker):
     d = FeatureTable(host="http://localhost:8099", headers={}, client=client)
     mocker.spy(client, 'post')
     
-    keys = [FeatureKey("testname", FeatureValueType.STRING)]
-    features = [Feature("testfeat", FeatureValueType.INTEGER)]
+    k = FeatureKey().with_key_name('testname'). \
+      with_key_value_type(FeatureValueType.STRING). \
+      build()
+    keys = [k]
 
-    await d.create_feature_table_mapping("did123", "tab123", "feature_tablen", keys=keys, features=features)
+    f = Feature().with_feature_name('testfeat'). \
+        with_feature_value_type(FeatureValueType.INTEGER). \
+        build()
+    features = [f]
+
+    await d.create_mapping("did123", "tab123", "feature_tablen", keys=keys, features=features)
 
     assert client.post.call_count == 1
 

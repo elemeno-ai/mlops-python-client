@@ -24,14 +24,28 @@ class InferenceServer(ServiceClient):
     self._endpoint = "/inferenceserver"
     self._headers = headers
     self._host = host
-    if client == None:
-      client = aiohttp.ClientSession()
     self._client = client
 
-  async def create_rest_inference_server(self, model_path: str, num_instances: int, 
-    sources: List[FeatureSource]) -> Any:
+  def _get_client(self):
+    if self._client == None:
+      return aiohttp.ClientSession()
+    return self._client
 
-    async with self._client as client:
+  async def create_rest(self, model_path: str, num_instances: int, 
+    sources: List[FeatureSource]) -> Any:
+    """
+    Creates a REST inference server for a given model.
+
+    Args:
+      model_path: Path to the model file.
+      num_instances: Number of instances to create.
+      sources: A list of FeatureSource objects.
+
+    Returns:
+      A list of InferenceServer objects.
+    """
+
+    async with self._get_client() as client:
       with aiohttp.MultipartWriter('application/octet-stream') as mpwriter:
         form = aiohttp.FormData()
         form.add_field("type", "HTTP")
@@ -48,9 +62,19 @@ class InferenceServer(ServiceClient):
           form.add_field("modelFile", mpwriter)
           return await self._post(client, self._endpoint, form=form, headers=self._headers)
 
-  async def list_inference_servers(self, offset: Optional[str] = None, limit: Optional[int] = None) -> Any:
+  async def list(self, offset: Optional[str] = None, limit: Optional[int] = None) -> Any:
+    """
+    List all inference servers.
+
+    Parameters:
+      offset: An optional string that represents the starting item, should be the value of 'next' field from the previous response.
+      limit: An optional integer to limit the number of returned items.
+
+    Returns:
+      A list of InferenceServer objects.
+    """
     query_params = {}
-    async with self._client as client:
+    async with self._get_client() as client:
       if offset != None:
         query_params["offset"] = offset
       if limit != None:
