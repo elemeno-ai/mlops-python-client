@@ -1,0 +1,5 @@
+Feature Store API
+=================
+
+.. automodule:: mlops_client.feature_store.featuretable_client
+   :members:

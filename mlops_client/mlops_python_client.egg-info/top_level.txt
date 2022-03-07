@@ -1,4 +1,6 @@
 __init__
 client
 datasource
+feature_store
+inference_server
 service_client

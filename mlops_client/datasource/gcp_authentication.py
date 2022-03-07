@@ -5,6 +5,20 @@ from mlops_client.model.missing_field import MissingFieldError
 
 
 class GCPAuthentication:
+  """
+  Builds a GCPAuthentication object.
+
+  Object building functions:
+    - with_path: Path to the service account key file.
+    - with_project_id: GCP project id.
+    - build: Returns a complete instance of the object.
+
+  Returns:
+    GCPAuthentication object.
+
+  Raises:
+    MissingFieldError: If any of the required fields are missing.
+  """
 
   @property
   def path(self):

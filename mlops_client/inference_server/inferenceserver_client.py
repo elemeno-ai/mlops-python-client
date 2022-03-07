@@ -14,11 +14,11 @@ class InferenceServer(ServiceClient):
     Elemeno MLOps API.
 
     Params:
-      headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
-      client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
+      - headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
+      - client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
     
     Returns:
-      An instance of InferenceServer
+      - An instance of InferenceServer
     """
 
     self._endpoint = "/inferenceserver"
@@ -37,12 +37,12 @@ class InferenceServer(ServiceClient):
     Creates a REST inference server for a given model.
 
     Args:
-      model_path: Path to the model file.
-      num_instances: Number of instances to create.
-      sources: A list of FeatureSource objects.
+      - model_path: Path to the model file.
+      - num_instances: Number of instances to create.
+      - sources: A list of FeatureSource objects.
 
     Returns:
-      A list of InferenceServer objects.
+      - A list of InferenceServer objects.
     """
 
     async with self._get_client() as client:
@@ -67,11 +67,11 @@ class InferenceServer(ServiceClient):
     List all inference servers.
 
     Parameters:
-      offset: An optional string that represents the starting item, should be the value of 'next' field from the previous response.
-      limit: An optional integer to limit the number of returned items.
+      - offset: An optional string that represents the starting item, should be the value of 'next' field from the previous response.
+      - limit: An optional integer to limit the number of returned items.
 
     Returns:
-      A list of InferenceServer objects.
+      - A list of InferenceServer objects.
     """
     query_params = {}
     async with self._get_client() as client:

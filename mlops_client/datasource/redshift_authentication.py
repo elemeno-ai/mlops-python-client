@@ -5,6 +5,20 @@ from mlops_client.model.missing_field import MissingFieldError
 
 
 class RedshiftAuthentication:
+  """
+  Builds a RedshiftAuthentication object.
+
+  Object building functions:
+    - with_api_key: The API key for the Redshift cluster.
+    - with_api_secret_key: The API secret key for the Redshift cluster.
+    - with_cluster_id: The ID of the Redshift cluster.
+    - with_aws_region: The AWS region where the Redshift cluster is located.
+    - with_database: The name of the database to use.
+    - build: Returns a complete instance of the object.
+  
+  Returns:
+    A RedshiftAuthentication object.
+  """
 
   @property
   def api_key(self):

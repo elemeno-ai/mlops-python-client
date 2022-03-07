@@ -1,6 +1,20 @@
 from enum import Enum
 
 class DatasourceType(Enum):
+  """
+  This is a class that defines the type of datasource that is being used.
+
+  The DatasourceType class is an enumeration class that defines the type of datasource that is being used.
+
+  Attributes
+  ----------
+  REDSHIFT : DatasourceType
+      The REDSHIFT datasource type
+  BIGQUERY : DatasourceType
+      The BIGQUERY datasource type
+  CSV : DatasourceType
+      The CSV datasource type
+    """
   REDSHIFT="REDSHIFT"
   BIGQUERY="BIG_QUERY"
   CSV="CSV"

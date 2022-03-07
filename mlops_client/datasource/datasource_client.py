@@ -19,8 +19,8 @@ class Datasource(ServiceClient):
     Elemeno MLOps API.
 
     Paramaters:
-      headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
-      client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
+      - headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
+      - client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
     
     Returns:
       An instance of Datasource
@@ -44,10 +44,10 @@ class Datasource(ServiceClient):
     """Creates a new datasource object on your account at Elemeno MLOps
     
     Parameters:
-      dstype: The type of data source you want to use
-      authentication: The credentials that will allow the platform to handle your data. Should be None when the type is CSV
-      description: A short description of your datasource, so that you can find it later
-      csv_file_path: Only required when type is CSV
+      - dstype: The type of data source you want to use
+      - authentication: The credentials that will allow the platform to handle your data. Should be None when the type is CSV
+      - description: A short description of your datasource, so that you can find it later
+      - csv_file_path: Only required when type is CSV
     
     Returns:
       The json object with the result. If it fails, this method will raise an Exception
@@ -89,7 +89,7 @@ class Datasource(ServiceClient):
     Removes a datasource.
 
     Parameters:
-      id: The datasource id.
+      - id: The datasource id.
 
     Returns:
       The datasource.
@@ -104,9 +104,9 @@ class Datasource(ServiceClient):
     Lists all datasources.
 
     Parameters:
-      offset: An optional string that is used for pagination. It indicates the
+      - offset: An optional string that is used for pagination. It indicates the
         first element that should be returned (0-based).
-      limit: An optional integer that is used for pagination. It indicates the
+      - limit: An optional integer that is used for pagination. It indicates the
         maximum number of elements to return.
 
     Returns:

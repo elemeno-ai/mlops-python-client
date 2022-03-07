@@ -13,8 +13,8 @@ class FeatureTable(ServiceClient):
     Elemeno MLOps API.
 
     Params:
-      headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
-      client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
+      - headers: A dictionary with the headers to be used in the call. Consider using mlops_client.model.headers.Headers which already contain the default required headers
+      - client: An optional parameter in case you think it's useful to specify your own aiohttp.ClientSession, if not specified this class creates one
     
     Returns:
       An instance of FeatureTable
@@ -36,11 +36,11 @@ class FeatureTable(ServiceClient):
     Creates a feature table mapping for a given datasource and source table.
 
     Parameters:
-      datasource_id (str): The datasource id.
-      source_table_id (str): The source table id.
-      feature_table_name (str): The feature table name.
-      keys (List[FeatureKey]): A list of FeatureKey objects.
-      features (List[Feature]): A list of Feature objects.
+      - datasource_id (str): The datasource id.
+      - source_table_id (str): The source table id.
+      - feature_table_name (str): The feature table name.
+      - keys (List[FeatureKey]): A list of FeatureKey objects.
+      - features (List[Feature]): A list of Feature objects.
 
     Returns:
       Any: The response from the API.

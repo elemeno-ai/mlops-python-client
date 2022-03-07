@@ -4,6 +4,17 @@ from mlops_client.feature_store.feature_value_type import FeatureValueType
 
 
 class Feature:
+  """
+  Builds a Feature object.
+
+  Object building functions:
+    - with_feature_name: The name of the feature.
+    - with_feature_value_type: The type of the feature value.
+    - build: Returns a complete instance of the object.
+
+  Returns:
+    A Feature object.
+  """
   
   @property
   def feature_name(self) -> str:

@@ -5,6 +5,23 @@ from mlops_client.inference_server.feature_source_type import FeatureSourceType
 from mlops_client.model.missing_field import MissingFieldError
 
 class FeatureSource:
+  """
+  FeatureSource
+
+  Object building functions:
+    - with_source_type: The type of the feature source.
+    - with_feature_table_id: The id of the feature table.
+    - with_feature_name: The name of the feature.
+    - with_body_json_path: The path to the feature in the request body.
+    - build: Returns a complete instance of the object.
+
+  Raises:
+    - MissingFieldError: If a required field is not provided.
+    - InvalidFeatureValueTypeError: If the provided source type is invalid.
+
+  Returns:
+   - A feature source.
+  """
 
   @property
   def source_type(self):
