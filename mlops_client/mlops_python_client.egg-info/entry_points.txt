@@ -1,3 +1,0 @@
-[console_scripts]
-elemeno = elemeno_ai_sdk.cli:main
-

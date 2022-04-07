@@ -21,7 +21,6 @@ mlops_client/inference_server/inferenceserver_client.py
 mlops_client/mlops_python_client.egg-info/PKG-INFO
 mlops_client/mlops_python_client.egg-info/SOURCES.txt
 mlops_client/mlops_python_client.egg-info/dependency_links.txt
-mlops_client/mlops_python_client.egg-info/entry_points.txt
 mlops_client/mlops_python_client.egg-info/not-zip-safe
 mlops_client/mlops_python_client.egg-info/requires.txt
 mlops_client/mlops_python_client.egg-info/top_level.txt

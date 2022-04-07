@@ -1,1 +1,3 @@
 aiohttp==3.8.1
+sphinx_rtd_theme
+pdoc==11.0.0
