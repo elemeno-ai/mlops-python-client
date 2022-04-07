@@ -1,7 +1,12 @@
 name: Tag release
 on:
   push:
+    branches:
+      - '*'
     tags:
+      - '*'
+  pull_request:
+    branches:
       - '*'
 jobs:
   publish:
@@ -11,9 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       #TODO add a step for running unit tests
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Setup python
         uses: actions/setup-python@v3
         with:
