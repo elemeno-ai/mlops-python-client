@@ -87,4 +87,4 @@ jobs:
           wget https://storage.googleapis.com/knative-nightly/client/latest/kn-linux-amd64
           mv kn-linux-amd64 kn
           chmod +x kn
-          ./kn service update docs-front --namespace front --image ${{ env.RELEASE_IMAGE }} --kubeconfig /tmp/kubeconfig
+          ./kn service update pydocs-front --namespace front --image ${{ env.RELEASE_IMAGE }} --kubeconfig /tmp/kubeconfig
