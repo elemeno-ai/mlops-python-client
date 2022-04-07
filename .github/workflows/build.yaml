@@ -38,16 +38,12 @@ jobs:
         with:                                    
           access_token: ${{ github.token }}
       - uses: actions/checkout@v3
+      - name: Configure AWS credentials                          
+        uses: aws-actions/configure-aws-credentials@v1
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          KUBE_NAMESPACE: front
-          ECR_REPOSITORY: python-sdk-docs
-          RELEASE_REVISION: ${{ github.ref_name}}
-      - name: Configure AWS credentials                          
-        uses: aws-actions/configure-aws-credentials@v1           
+          AWS_REGION: ${{ secrets.AWS_REGION }}           
         with:                                                    
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}        
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
@@ -66,7 +62,9 @@ jobs:
           restore-keys: |                                      
             ${{ runner.os }}-single-buildx
       - name: Build & Push Image                                                                                      
-        env:                                                                                                          
+        env:
+          ECR_REPOSITORY: python-sdk-docs
+          RELEASE_REVISION: ${{ github.ref_name}}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}                                                       
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.RELEASE_REVISION }}
         run: |
@@ -84,7 +82,11 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: Update Knative Service
         uses: redhat-actions/kn-service-manager@v1
-        env:                                                                                                          
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBE_NAMESPACE: front
+          ECR_REPOSITORY: python-sdk-docs
+          RELEASE_REVISION: ${{ github.ref_name}}
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.RELEASE_REVISION }}
         with:
           command: update
