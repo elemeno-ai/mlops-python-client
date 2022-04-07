@@ -28,6 +28,8 @@ elemeno-ai-sdk.readthedocs.io
 Development
 ===========
 
+> If you're using Mac, first install make with `brew install make`
+
 To run all the tests run::
 
     tox

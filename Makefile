@@ -28,9 +28,15 @@ bump-custom:
 	bumpversion --new-version $(version) patch --verbose
 
 bump-patch:
+ifeq "${RELEASE}" "true"
+	@echo "inside RELEASE"
+	bumpversion patch --tag --tag-name RELEASE-v{new_version} patch --verbose
+else
+	@echo "no release"
 	bumpversion patch --tag --verbose
 	@echo "New version: v$$(python setup.py --version)"
 	@echo "Make sure to push the new tag to GitHub"
+endif
 
 bump-minor:
 	bumpversion minor --tag --verbose
