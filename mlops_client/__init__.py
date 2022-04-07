@@ -1,4 +1,3 @@
-__version__ = "0.0.19"
 """
 ### Elemeno MLOps Python SDK
 
@@ -20,3 +19,5 @@ __version__ = "0.0.19"
 
   Done, now you can create an instance of MLOpsClient using your credentials and start using the SDK.
 """
+
+__version__ = "0.0.19"
