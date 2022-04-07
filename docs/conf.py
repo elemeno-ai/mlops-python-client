@@ -25,7 +25,7 @@ copyright = '2022, engineering@elemeno.ai'
 author = 'engineering@elemeno.ai'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.9'
+release = '0.0.10'
 
 
 # -- General configuration ---------------------------------------------------
