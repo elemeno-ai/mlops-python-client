@@ -28,7 +28,7 @@ def parse_requirements(filename):
 
 setup(
     name='elemeno-mlops-client',
-    version='0.0.16',
+    version='0.0.17',
     license='Apache-2.0',
     description='A REST client lib to make using elemeno AI ML-Ops platform a smooth experience',
     long_description='%s\n%s' % (
