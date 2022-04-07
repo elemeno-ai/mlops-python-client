@@ -77,21 +77,14 @@ jobs:
 
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-      - name: Persist kubeconfig
+      - name: Update Knative Service
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ env.KUBE_CONFIG_DATA }}" > /tmp/kubeconfig
-      - name: Update Knative Service
-        uses: redhat-actions/kn-service-manager@v1
-        env:
           KUBE_NAMESPACE: front
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/python-sdk-docs:${{ github.ref_name }}
-        with:
-          command: update
-          service_name: docs-front
-          container_image: ${{ env.RELEASE_IMAGE }}
-          namespace: ${{ env.KUBE_NAMESPACE }}
-          kn_extra_args: >
-            --kubeconfig /tmp/kubeconfig
+        run: |
+          echo "${{ env.KUBE_CONFIG_DATA }}" > /tmp/kubeconfig
+          wget https://storage.googleapis.com/knative-nightly/client/latest/kn-linux-amd64
+          mv kn-linux-amd64 kn
+          chmod +x kn
+          ./kn service update docs-front --namespace front --image ${{ env.RELEASE_IMAGE }} --kubeconfig /tmp/kubeconfig
