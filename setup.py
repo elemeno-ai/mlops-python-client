@@ -27,7 +27,7 @@ def parse_requirements(filename):
     return [line for line in lineiter if line and not line.startswith("#")]
 
 setup(
-    name='mlops-python-client',
+    name='elemeno-mlops-client',
     version='0.0.2',
     license='Apache-2.0',
     description='A REST client lib to make using elemeno AI ML-Ops platform a smooth experience',
