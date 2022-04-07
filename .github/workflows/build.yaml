@@ -82,7 +82,7 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         run: |
           mkdir -p ~/.kube
-          echo "${{ env.KUBE_CONFIG_DATA }}" > ~/.kube/config
+          echo "${{ env.KUBE_CONFIG_DATA }}" > /tmp/kubeconfig
       - name: Update Knative Service
         uses: redhat-actions/kn-service-manager@v1
         env:
@@ -93,3 +93,5 @@ jobs:
           service_name: docs-front
           container_image: ${{ env.RELEASE_IMAGE }}
           namespace: ${{ env.KUBE_NAMESPACE }}
+          kn_extra_args: >
+            --kubeconfig /tmp/kubeconfig
